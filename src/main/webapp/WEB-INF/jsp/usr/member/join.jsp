@@ -23,11 +23,19 @@
        return;
 	      }
 
+	  if (isAlphaNumeric(form.loginId.value) == false) {
+			alert('아이디를 영어로 입력해주세요.');
+			form.loginId.focus();
+			return false;
+		}
+		//아이디 소문자
+		form.loginId.value = form.loginId.value.toLowerCase();  
+
 	  if(validLoginId != form.loginId.value) {
        alert('다른 로그인 아이디를 입력해주세요.');
        form.loginId.focus();
        return;
-	      }
+	    }
       
 		form.loginPw.value = form.loginPw.value.trim();
 		if (form.loginPw.value.length == 0) {
@@ -87,6 +95,10 @@
 	    if ( form.loginId.value == validLoginId ) {
 	        return;
 	    }
+
+	    if(isAlphaNumeric(form.loginId.value)==false) {
+          return false;
+	    }
 	    validLoginId = "";
 	    $('.login-id-input-success-msg').text('');
 	    $('.login-id-input-success-msg').hide();
@@ -101,7 +113,7 @@
 	            },
 	            function(data) {
 	                if ( data.success ) {
-	                	validLoginId = data.data1.loginId;
+	                	validLoginId = data.data1;
 	                    $('.login-id-input-success-msg').text(data.msg);
 	                    $('.login-id-input-success-msg').show();
 	                }
