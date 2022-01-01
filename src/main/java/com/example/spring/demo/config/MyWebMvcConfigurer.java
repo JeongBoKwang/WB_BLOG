@@ -54,6 +54,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/reactionPoint/doBadReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doCancelGoodReaction");
 		ir.addPathPatterns("/usr/reactionPoint/doCancelBadReaction");
+		ir.addPathPatterns("/usr/member/doDeleteMember");
 		
 		ir = registry.addInterceptor(needLogoutInterceptor);
 		ir.addPathPatterns("/usr/member/join");

@@ -1,6 +1,17 @@
 server:
   port: 8011
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: inchby112@gmail.com
+    password: vxocypeyctrjjslc
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
   mvc:
     view:
       prefix: /WEB-INF/jsp/
@@ -14,6 +25,10 @@ spring:
 mybatis:
   type-aliases-package: com.example.spring.demo.vo 
 custom:
+  siteMainUri: http://localhost:8011/
+  siteName: BLOG
+  emailFrom: no-reply@localhost
+  emailFromName: BLOG알림
   logging:
     dir: log
     level: debug  

@@ -99,6 +99,7 @@
 	    if(isAlphaNumeric(form.loginId.value)==false) {
           return false;
 	    }
+      
 	    validLoginId = "";
 	    $('.login-id-input-success-msg').text('');
 	    $('.login-id-input-success-msg').hide();

@@ -1,5 +1,6 @@
 package com.example.spring.demo.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.example.spring.demo.repository.MemberRepository;
@@ -9,12 +10,19 @@ import com.example.spring.demo.vo.ResultData;
 
 @Service
 public class MemberService {
+	@Value("${custom.siteMainUri}")
+    private String siteMainUri;
+    @Value("${custom.siteName}")
+    private String siteName;
+	
+	private MailService mailService;
 	private MemberRepository memberRepository;
 	private AttrService attrService;
 
-	public MemberService(MemberRepository memberRepository, AttrService attrService) {
+	public MemberService(MemberRepository memberRepository, AttrService attrService, MailService mailService) {
 		this.memberRepository = memberRepository;
 		this.attrService = attrService;
+		this.mailService = mailService;
 	}
 
 	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
@@ -74,6 +82,31 @@ public class MemberService {
 		}
 		
 		return ResultData.from("S-1", "정상적인 코드입니다.");
+	}
+
+	public ResultData notifyTempLoginPwByEmail(Member actor) {
+		String title = "[" + siteName + "] 임시 패스워드 발송";
+        String tempPassword = Ut.getTempPassword(6);
+        String body = "<h1>임시 패스워드 : " + tempPassword + "</h1>";
+        body += "<a href=\"" + siteMainUri + "/mpaUsr/member/login\" target=\"_blank\">로그인 하러가기</a>";
+
+        ResultData sendResultData = mailService.send(actor.getEmail(), title, body);
+
+        if (sendResultData.isFail()) {
+            return sendResultData;
+        }
+
+        setTempPassword(actor, tempPassword);
+
+        return ResultData.from("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다.");
+	}
+
+	private void setTempPassword(Member actor, String tempPassword) {
+		memberRepository.modify(actor.getId(), tempPassword, null, null, null, null);
+	}
+
+	public void deleteMember(int id) {
+		memberRepository.deleteMember(id);	
 	}
 
 }

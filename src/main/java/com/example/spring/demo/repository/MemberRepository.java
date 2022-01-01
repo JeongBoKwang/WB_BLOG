@@ -1,12 +1,12 @@
 package com.example.spring.demo.repository;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.example.spring.demo.vo.Member;
-import com.example.spring.demo.vo.ResultData;
 
 @Mapper
 public interface MemberRepository {
@@ -74,4 +74,10 @@ public interface MemberRepository {
 			</script>
 			""")
 	void modify(int id, String loginPw, String name, String nickname, String cellphoneNo, String email);
+	
+	@Delete("""
+			DELETE FROM member
+			WHERE id = #{id}
+			""")
+	void deleteMember(int id);
 }

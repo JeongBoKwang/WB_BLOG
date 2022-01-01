@@ -1,6 +1,7 @@
 package com.example.spring.demo.util;
 
 import java.net.URLEncoder;
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -35,42 +36,24 @@ public class Ut {
 		return String.format(format, args);
 	}
 
-	@SuppressWarnings("preview")
 	public static String jsHistoryBack(String msg) {
-		if(msg == null) {
-			msg = "";
-		}
-		
-		return Ut.f("""
-			<script>
-			const msg = '%s'.trim();
-			if(msg.length > 0) {
-				alert(msg);
-			}
-			history.back();
-			</script>
-				""", msg);
+		StringBuilder sb = new StringBuilder();
+        sb.append("<script>");
+        sb.append("alert('" + msg + "');");
+        sb.append("history.back();");
+        sb.append("</script>");
+
+        return sb.toString();
 	}
 
-	@SuppressWarnings("preview")
 	public static String jsReplace(String msg, String uri) {
-		if(msg == null) {
-			msg = "";
-		}
-		
-		if(uri == null) {
-			uri = "";
-		}
-		
-		return Ut.f("""
-			<script>
-			const msg = '%s'.trim();
-			if(msg.length > 0) {
-				alert(msg);
-			}
-			location.replace('%s');
-			</script>
-				""", msg, uri);
+		StringBuilder sb = new StringBuilder();
+        sb.append("<script>");
+        sb.append("alert('" + msg + "');");
+        sb.append("location.replace('" + uri + "');");
+        sb.append("</script>");
+
+        return sb.toString();
 	}
 	
 	public static String getUriEncoded(String str) {
@@ -105,6 +88,27 @@ public class Ut {
 
 		return sb.toString();
 	}
+	
+	//해싱알고리즘
+	 public static String sha256(String base) {
+	        try {
+	            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+	            StringBuffer hexString = new StringBuffer();
+
+	            for (int i = 0; i < hash.length; i++) {
+	                String hex = Integer.toHexString(0xff & hash[i]);
+	                if (hex.length() == 1)
+	                    hexString.append('0');
+	                hexString.append(hex);
+	            }
+
+	            return hexString.toString();
+
+	        } catch (Exception ex) {
+	            return "";
+	        }
+	    }
 
 	public static Map<String, String> getParamMap(HttpServletRequest request) {
 		Map<String, String> param = new HashMap<>();

@@ -20,10 +20,10 @@ public class UsrMemberController {
 		this.memberService = memberService;
 		this.rq = rq;
 	}
-	//회원가입 시 중복아이디 체크
+	//회원가입 시 중복아이디, 이메일, 이름 체크
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
-	public ResultData getLoginIdDup(String loginId) {
+	public ResultData getLoginIdDup(String loginId, String name, String email) {
 		if(Ut.empty(loginId)) {
 			return ResultData.from("F-E", "로그인 아이디를 입력해주세요");
 		}
@@ -122,12 +122,14 @@ public class UsrMemberController {
 
 		return rq.jsReplace("로그아웃 되었습니다.", afterLogoutUri);
 	}
-
+	
+	//마이페이지
 	@RequestMapping("/usr/member/myPage")
 	public String showMyPage() {
 		return "usr/member/myPage";
 	}
-
+	
+	//회원정보 수정시 비밀번호 체크
 	@RequestMapping("/usr/member/checkPassword")
 	public String showCheckPassword() {
 		return "usr/member/checkPassword";
@@ -152,7 +154,8 @@ public class UsrMemberController {
 
 		return rq.jsReplace("", replaceUri);
 	}
-
+	
+	//회원정보 수정
 	@RequestMapping("/usr/member/modify")
 	public String showModify(String memberModifyAuthKey) {
 		if (Ut.empty(memberModifyAuthKey)) {
@@ -210,6 +213,7 @@ public class UsrMemberController {
 		return rq.jsReplace(modifyRd.getMsg(), "/");
 	}
 	
+	//아이디 찾기
 	@RequestMapping("/usr/member/findLoginId")
 	public String findLoginId() {
 		return "usr/member/findLoginId";
@@ -217,14 +221,55 @@ public class UsrMemberController {
 	
 	@RequestMapping("/usr/member/doFindLoginId")
 	@ResponseBody
-	public String doFindLoginId(String name, String email, String afterLoginUri) {
-		
+	public String doFindLoginId(String name, String email) {		
 		Member member = memberService.getMemberByNameAndEmail(name, email);
 		
 		if(member == null) {
 			return rq.jsHistoryBack("일치하는 회원이 존재하지 않습니다.");
 		}
 		
-		return rq.jsReplace(Ut.f("회원님의 아이디는 '%s'입니다", member.getLoginId()), afterLoginUri);
+		return rq.jsReplace(Ut.f("회원님의 아이디는 (%s)입니다", member.getLoginId()), "../member/login");
+	}
+	
+	//비밀번호 찾기
+	@RequestMapping("/usr/member/findLoginPw")
+	public String findLoginPw() {
+		return "usr/member/findLoginPw";
+	}
+	
+	@RequestMapping("/usr/member/doFindLoginPw")
+	@ResponseBody
+	public String doFindLoginPw(String loginId, String name, String email) {
+		if (Ut.empty(loginId)) {
+			return rq.jsHistoryBack("로그인 아이디를 입력해주세요.");
+		}
+		
+		Member member = memberService.getMemberByLoginId(loginId);
+		
+		if(member == null) {
+			return rq.jsHistoryBack("일치하는 회원이 존재하지 않습니다.");
+		}
+		
+		if(member.getName().equals(name) == false) {
+			return rq.jsHistoryBack("일치하는 회원이름이 존재하지 않습니다.");
+		}
+		
+		if(member.getEmail().equals(email) == false) {
+			return rq.jsHistoryBack("일치하는 회원이메일이 존재하지 않습니다.");
+		}
+		
+		ResultData notifyTempLoginPwByEmailRs = memberService.notifyTempLoginPwByEmail(member);
+		
+		return rq.jsReplace(notifyTempLoginPwByEmailRs.getMsg(), "../member/login ");
+	}
+	
+	@RequestMapping("/usr/member/doDeleteMember")
+	@ResponseBody
+	public String doDeleteMember(int id) {
+		
+		memberService.deleteMember(rq.getLoginedMemberId());
+		rq.logout();
+		
+		return rq.jsReplace("회원탈퇴가 완료되었습니다.", "/");
 	}
 }
