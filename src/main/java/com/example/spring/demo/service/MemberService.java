@@ -24,7 +24,8 @@ public class MemberService {
 		this.attrService = attrService;
 		this.mailService = mailService;
 	}
-
+	
+	//회원가입
 	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 		// 로그인아이디 중복체크
@@ -45,26 +46,30 @@ public class MemberService {
 
 		return ResultData.from("S-1", "회원가입이 완료되었습니다.", "id", id);
 	}
-
+	
+	//이름,메일 가져오기
 	public Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);
 	}
-
+	
+	//로그인 아이디 가져오기
 	public Member getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
-
+	
+	//로그인 회원번호 가져오기
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
-
+	
+	//회원수정(번호,비밀번호,이름,닉네임,전화번호,이메일 가져오기)
 	public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNo,
 			String email) {
 		memberRepository.modify(id, loginPw, name, nickname, cellphoneNo, email);
 		
 		return ResultData.from("S-1", "회원정보가 수정되었습니다.");
 	}
-
+	
 	public String genMemberModifyAuthKey(int actorId) {
 		String memberModifyAuthKey = Ut.getTempPassword(10);
 
@@ -72,7 +77,7 @@ public class MemberService {
 
 		return memberModifyAuthKey;
 	}
-
+	
 	public ResultData checkMemberModifyAuthKey(int actorId, String memberModifyAuthKey) {
 		
 		String saved = attrService.getValue("member", actorId, "extra", "memberModifyAuthKey");
@@ -95,6 +100,8 @@ public class MemberService {
         if (sendResultData.isFail()) {
             return sendResultData;
         }
+        
+        tempPassword = Ut.sha256(tempPassword);
 
         setTempPassword(actor, tempPassword);
 

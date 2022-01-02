@@ -38,7 +38,7 @@
             <th>비고</th>
             <td>
                <a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-primary">회원정보수정</a>
-               <a href="../member/doDeleteMember?id=${rq.loginedMember.id}" class="btn">회원 탈퇴</a>
+               <a onclick="if(confirm('회원 탈퇴를 하시겠습니까?')==false) return false;" href="../member/doDeleteMember?id=${rq.loginedMember.id}" class="btn">회원 탈퇴</a>
               <button type="button" class="btn btn-outline btn-secondary" onclick="history.back();">뒤로가기</button>
             </td>
           </tr>

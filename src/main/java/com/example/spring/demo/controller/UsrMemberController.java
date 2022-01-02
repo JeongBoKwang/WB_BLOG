@@ -1,10 +1,15 @@
 package com.example.spring.demo.controller;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
+import com.example.spring.demo.service.GenFileService;
 import com.example.spring.demo.service.MemberService;
 import com.example.spring.demo.util.Ut;
 import com.example.spring.demo.vo.Member;
@@ -14,29 +19,32 @@ import com.example.spring.demo.vo.Rq;
 @Controller
 public class UsrMemberController {
 	private MemberService memberService;
+	private GenFileService genFileService;
 	private Rq rq;
 
-	public UsrMemberController(MemberService memberService, Rq rq) {
+	public UsrMemberController(MemberService memberService, GenFileService genFileService, Rq rq) {
 		this.memberService = memberService;
+		this.genFileService = genFileService;
 		this.rq = rq;
 	}
-	//회원가입 시 중복아이디, 이메일, 이름 체크
+
+	// 회원가입 시 중복아이디, 이메일, 이름 체크
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public ResultData getLoginIdDup(String loginId, String name, String email) {
-		if(Ut.empty(loginId)) {
+		if (Ut.empty(loginId)) {
 			return ResultData.from("F-E", "로그인 아이디를 입력해주세요");
 		}
-		
+
 		Member oldMember = memberService.getMemberByLoginId(loginId);
-		
-		if(oldMember != null) {
+
+		if (oldMember != null) {
 			return ResultData.from("F-A", "해당 아이디는 이미 사용중입니다.", "loginId", loginId);
 		}
-		
+
 		return ResultData.from("S-1", "사용가능한 로그인 아이디 입니다.", "loginId", loginId);
 	}
-	
+
 	// 회원가입
 	@RequestMapping("/usr/member/join")
 	public String showJoin() {
@@ -46,7 +54,7 @@ public class UsrMemberController {
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNo, String email,
-			@RequestParam(defaultValue = "/") String afterLoginUri) {
+			MultipartRequest multipartRequest, @RequestParam(defaultValue = "/") String afterLoginUri) {
 		if (Ut.empty(loginId)) {
 			return rq.jsHistoryBack("loginId(을)를 입력해주세요.");
 		}
@@ -75,6 +83,18 @@ public class UsrMemberController {
 
 		if (joinRd.isFail()) {
 			return rq.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg());
+		}
+		
+		int newMemberId = (int)joinRd.getbody().get("id");
+		
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		
+		for(String fileInputName : fileMap.keySet()) {
+			MultipartFile multipartFile = fileMap.get(fileInputName);
+			
+			if(multipartFile.isEmpty() == false) {
+				genFileService.save(multipartFile, newMemberId);
+			}
 		}
 
 		String afterJoinUri = "../member/login?afterLoginUri=" + Ut.getUriEncoded(afterLoginUri);
@@ -122,14 +142,14 @@ public class UsrMemberController {
 
 		return rq.jsReplace("로그아웃 되었습니다.", afterLogoutUri);
 	}
-	
-	//마이페이지
+
+	// 마이페이지
 	@RequestMapping("/usr/member/myPage")
 	public String showMyPage() {
 		return "usr/member/myPage";
 	}
-	
-	//회원정보 수정시 비밀번호 체크
+
+	// 회원정보 수정시 비밀번호 체크
 	@RequestMapping("/usr/member/checkPassword")
 	public String showCheckPassword() {
 		return "usr/member/checkPassword";
@@ -154,8 +174,8 @@ public class UsrMemberController {
 
 		return rq.jsReplace("", replaceUri);
 	}
-	
-	//회원정보 수정
+
+	// 회원정보 수정
 	@RequestMapping("/usr/member/modify")
 	public String showModify(String memberModifyAuthKey) {
 		if (Ut.empty(memberModifyAuthKey)) {
@@ -212,64 +232,65 @@ public class UsrMemberController {
 
 		return rq.jsReplace(modifyRd.getMsg(), "/");
 	}
-	
-	//아이디 찾기
+
+	// 아이디 찾기
 	@RequestMapping("/usr/member/findLoginId")
 	public String findLoginId() {
 		return "usr/member/findLoginId";
 	}
-	
+
 	@RequestMapping("/usr/member/doFindLoginId")
 	@ResponseBody
-	public String doFindLoginId(String name, String email) {		
+	public String doFindLoginId(String name, String email) {
 		Member member = memberService.getMemberByNameAndEmail(name, email);
-		
-		if(member == null) {
+
+		if (member == null) {
 			return rq.jsHistoryBack("일치하는 회원이 존재하지 않습니다.");
 		}
-		
+
 		return rq.jsReplace(Ut.f("회원님의 아이디는 (%s)입니다", member.getLoginId()), "../member/login");
 	}
-	
-	//비밀번호 찾기
+
+	// 비밀번호 찾기
 	@RequestMapping("/usr/member/findLoginPw")
 	public String findLoginPw() {
 		return "usr/member/findLoginPw";
 	}
-	
+
 	@RequestMapping("/usr/member/doFindLoginPw")
 	@ResponseBody
 	public String doFindLoginPw(String loginId, String name, String email) {
 		if (Ut.empty(loginId)) {
 			return rq.jsHistoryBack("로그인 아이디를 입력해주세요.");
 		}
-		
+
 		Member member = memberService.getMemberByLoginId(loginId);
-		
-		if(member == null) {
+
+		if (member == null) {
 			return rq.jsHistoryBack("일치하는 회원이 존재하지 않습니다.");
 		}
-		
-		if(member.getName().equals(name) == false) {
+
+		if (member.getName().equals(name) == false) {
 			return rq.jsHistoryBack("일치하는 회원이름이 존재하지 않습니다.");
 		}
-		
-		if(member.getEmail().equals(email) == false) {
+
+		if (member.getEmail().equals(email) == false) {
 			return rq.jsHistoryBack("일치하는 회원이메일이 존재하지 않습니다.");
 		}
-		
+
 		ResultData notifyTempLoginPwByEmailRs = memberService.notifyTempLoginPwByEmail(member);
-		
+
 		return rq.jsReplace(notifyTempLoginPwByEmailRs.getMsg(), "../member/login ");
 	}
-	
+
+	// 회원탈퇴
 	@RequestMapping("/usr/member/doDeleteMember")
 	@ResponseBody
 	public String doDeleteMember(int id) {
-		
 		memberService.deleteMember(rq.getLoginedMemberId());
 		rq.logout();
-		
-		return rq.jsReplace("회원탈퇴가 완료되었습니다.", "/");
+
+		return rq.jsReplace("회원탈퇴가 완료되었습니다. 이용해주셔서 감사합니다.", "/");
+
 	}
 }

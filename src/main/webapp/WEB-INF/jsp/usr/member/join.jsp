@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="회원가입" />
 <%@ include file="../common/head.jspf"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script type="text/javascript">
   let validLoginId = "";
 	let submitJoinFormDone = false;
@@ -37,10 +38,10 @@
        return;
 	    }
       
-		form.loginPw.value = form.loginPw.value.trim();
-		if (form.loginPw.value.length == 0) {
+		form.loginPwInput.value = form.loginPwInput.value.trim();
+		if (form.loginPwInput.value.length == 0) {
 			alert('로그인비밀번호를 입력해주세요.');
-			form.loginPw.focus();
+			form.loginPwInput.focus();
 			return;
 		}
     
@@ -51,7 +52,7 @@
 			return;
 		}
     
-		if (form.loginPw.value != form.loginPwConfirm.value) {
+		if (form.loginPwInput.value != form.loginPwConfirm.value) {
 			alert('로그인비밀번호 확인이 일치하지 않습니다.');
 			form.loginPwConfirm.focus();
 			return;
@@ -84,6 +85,10 @@
 			form.email.focus();
 			return;
 		}
+
+	  form.loginPw.value = sha256(form.loginPwInput.value);
+    form.loginPwInput.value = '';
+    form.loginPwConfirm.value = '';
     
 		submitJoinFormDone = true;
 		form.submit();
@@ -131,8 +136,9 @@
 
 <section class="mt-5">
   <div class="container mx-auto px-3">
-    <form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+    <form class="table-box-type-1" method="POST" enctype="multipart/form-data" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
       <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
+      <input type="hidden" name="loginPw"/>
       <table>
         <colgroup>
           <col width="200" />
@@ -148,7 +154,7 @@
           </tr>
           <tr>
             <th>로그인비밀번호</th>
-            <td><input name="loginPw" class="w-96 input input-bordered" type="password" placeholder="로그인비밀번호" /></td>
+            <td><input name="loginPwInput" class="w-96 input input-bordered" type="password" placeholder="로그인비밀번호" /></td>
           </tr>
           <tr>
             <th>로그인비밀번호 확인</th>
@@ -161,6 +167,10 @@
           <tr>
             <th>닉네임</th>
             <td><input name="nickname" class="w-96 input input-bordered" type="text" placeholder="닉네임" /></td>
+          </tr>
+          <tr>
+            <th>프로필 이미지</th>
+            <td><input name="profileImg" type="file" placeholder="프로필 이미지를 선택해주세요." /></td>
           </tr>
           <tr>
             <th>전화번호</th>
