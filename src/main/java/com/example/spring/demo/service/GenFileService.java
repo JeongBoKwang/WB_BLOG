@@ -81,7 +81,7 @@ public class GenFileService {
 
         ResultData saveMetaRd = saveMeta(relTypeCode, relId, typeCode, type2Code, fileNo, originFileName,
                 fileExtTypeCode, fileExtType2Code, fileExt, fileSize, fileDir);
-        int newGenFileId = (int) saveMetaRd.getBody().get("id");
+        int newGenFileId = (int) saveMetaRd.getData1();
 
         // 새 파일이 저장될 폴더(io파일) 객체 생성
         String targetDirPath = genFileDirPath + "/" + relTypeCode + "/" + fileDir;
@@ -151,7 +151,7 @@ public class GenFileService {
 
             if (multipartFile.isEmpty() == false) {
                 ResultData fileResultData = save(multipartFile);
-                int genFileId = (int) fileResultData.getBody().get("id");
+                int genFileId = (int) fileResultData.getData1();
                 genFileIds.add(genFileId);
 
                 filesResultData.put(fileInputName, fileResultData);

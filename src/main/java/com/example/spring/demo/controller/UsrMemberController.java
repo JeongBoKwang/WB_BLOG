@@ -85,7 +85,7 @@ public class UsrMemberController {
 			return rq.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg());
 		}
 		
-		int newMemberId = (int)joinRd.getbody().get("id");
+		int newMemberId = (int)joinRd.getData1();
 		
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 		

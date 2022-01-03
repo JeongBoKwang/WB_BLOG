@@ -2,9 +2,8 @@ package com.example.spring.demo.vo;
 
 import java.util.Map;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.example.spring.demo.util.Ut;
+
 
 import lombok.Getter;
 import lombok.ToString;
@@ -47,6 +46,9 @@ public class ResultData<DT> {
 	public void setData2(String dataName, Object data) {
 		data2Name = dataName;
 		data2 = data;
+	}
+	public static ResultData from(Object...args) {
+		return from(args);
 	}
 
 }
