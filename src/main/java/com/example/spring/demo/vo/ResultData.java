@@ -25,7 +25,7 @@ public class ResultData<DT> {
 	public static ResultData from(String resultCode, String msg) {
 		return from(resultCode, msg, null, null);
 	}
-	public static <DT> ResultData<DT> from(String resultCode, String msg, String data1Name, DT data1) {
+	public static <DT> ResultData<DT> from(String resultCode, String msg, String data1Name, DT data1, Object...args) {
 		ResultData<DT> rd = new ResultData<DT>();
 		rd.resultCode = resultCode;
 		rd.msg = msg;
@@ -47,8 +47,4 @@ public class ResultData<DT> {
 		data2Name = dataName;
 		data2 = data;
 	}
-	public static ResultData from(Object...args) {
-		return from(args);
-	}
-
 }

@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="마이페이지" />
+<c:set var="pageTitle" value="My Information" />
 <%@ include file="../common/head.jspf"%>  
 <%@ page import="com.example.spring.demo.util.Ut" %>  
 <section class="mt-5">
   <div class="container mx-auto px-3">
-    <div class="table-box-type-1">
+    <div class="table-box-type-2">
+    	<div class="img">
+    		<img class="object-cover" onerror="${rq.loginedMember.profileFallbackImgOnErrorHtmlAttr}" src="${rq.loginedMember.profileImgUri}" alt="">
+    		<button>프로필 이미지 수정</button>
+    	</div>
       <table>
         <colgroup>
           <col width="200" />
@@ -34,16 +38,13 @@
             <th>이메일</th>
             <td>${rq.loginedMember.email}</td>
           </tr>
-          <tr>
-            <th>비고</th>
-            <td>
-               <a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-primary">회원정보수정</a>
-               <a onclick="if(confirm('회원 탈퇴를 하시겠습니까?')==false) return false;" href="../member/doDeleteMember?id=${rq.loginedMember.id}" class="btn">회원 탈퇴</a>
-              <button type="button" class="btn btn-outline btn-secondary" onclick="history.back();">뒤로가기</button>
-            </td>
-          </tr>
         </tbody>
       </table>
+      <div class="bottom-option">
+      	 <a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-primary">회원정보수정</a>
+         <a onclick="if(confirm('회원 탈퇴를 하시겠습니까?')==false) return false;" href="../member/doDeleteMember?id=${rq.loginedMember.id}" class="btn">회원 탈퇴</a>
+         <button type="button" class="btn btn-outline btn-secondary" onclick="history.back();">뒤로가기</button>
+      </div>
     </div>
   </div>
 </section>

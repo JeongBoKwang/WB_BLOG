@@ -44,6 +44,10 @@
         </colgroup>
         <tbody>
           <tr>
+            <th>작성자</th>         
+            <td>${article.extra__writerName}</td>
+          </tr>	
+          <tr>
             <th>번호</th>
             <td>
               <div class="badge badge-primary">${article.id}</div>
@@ -56,11 +60,7 @@
           <tr>
             <th>수정날짜</th>
             <td>${article.updateDateForPrintType2}</td>
-          </tr>
-          <tr>
-            <th>작성자</th>
-            <td>${article.extra__writerName}</td>
-          </tr>
+          </tr>     
           <tr>
             <th>조회</th>
             <td><span class="article-detail__hit-count">${article.hitCount}</span></td>

@@ -1,0 +1,39 @@
+server:
+  port: 8011
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: inchby112@gmail.com
+    password: vxocypeyctrjjslc
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/project_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull
+    username: root
+    password:  
+mybatis:
+  type-aliases-package: com.example.spring.demo.vo 
+custom:
+  genFileDirPath: C:/work/project_test-file
+  siteMainUri: http://localhost:8011/
+  siteName: BLOG
+  emailFrom: no-reply@localhost
+  emailFromName: BLOG알림
+  logging:
+    dir: log
+    level: debug  

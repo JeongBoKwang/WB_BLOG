@@ -20,4 +20,18 @@ public class Member {
 	private String email;
 	private boolean delStatus;
 	private String delDate;
+	
+	public String getProfileImgUri() {
+        return "/common/genFile/file/member/" + id + "/extra/profileImg/1";
+    }
+
+    public String getProfileFallbackImgUri() {
+        return "https://via.placeholder.com/300?text=^_^";
+    }
+
+    public String getProfileFallbackImgOnErrorHtmlAttr() {
+        return "this.src = '" + getProfileFallbackImgUri() + "'";
+    }
 }
+
+	

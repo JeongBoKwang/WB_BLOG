@@ -42,4 +42,16 @@ public class Article {
 	public String getRegDateForPrintType2() {
 		return updateDate.substring(2, 16);
 	}
+	
+	public String getWriterProfileImgUri() {
+        return "/common/genFile/file/member/" + memberId + "/extra/profileImg/1";
+    }
+
+    public String getWriterProfileFallbackImgUri() {
+        return "https://via.placeholder.com/300?text=^_^";
+    }
+
+    public String getWriterProfileFallbackImgOnErrorHtmlAttr() {
+        return "this.src = '" + getWriterProfileFallbackImgUri() + "'";
+    }
 }

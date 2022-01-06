@@ -130,6 +130,12 @@ public class UsrMemberController {
 		}
 
 		rq.login(member);
+		
+		boolean isUsingTempPassword = memberService.isUsingTempPassword(member.getId());
+		
+		if(isUsingTempPassword) {
+			return rq.jsReplace("임시 비밀번호를 변경해주세요.", "/usr/member/myPage");
+		}
 
 		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), afterLoginUri);
 	}
@@ -159,7 +165,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public String doCheckPassword(String loginPw, String replaceUri) {
 		if (Ut.empty(loginPw)) {
-			return rq.jsHistoryBack("로그인 비밀번호를 입력해주세요.");
+			return rq.jsHistoryBack("loginPw(을)를 입력해주세요.");
 		}
 
 		if (rq.getLoginedMember().getLoginPw().equals(loginPw) == false) {

@@ -170,7 +170,7 @@
           </tr>
           <tr>
             <th>프로필 이미지</th>
-            <td><input name="profileImg" type="file" placeholder="프로필 이미지를 선택해주세요." /></td>
+            <td><input name="file__member__0__extra__profileImg__1" type="file" placeholder="프로필 이미지를 선택해주세요." /></td>
           </tr>
           <tr>
             <th>전화번호</th>

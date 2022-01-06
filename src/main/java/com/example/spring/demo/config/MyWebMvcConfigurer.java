@@ -1,9 +1,11 @@
 package com.example.spring.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.example.spring.demo.interceptor.BeforeActionInterceptor;
@@ -23,6 +25,9 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	// needLoginInterceptor 인터셉터 불러오기
 	@Autowired
 	NeedLogoutInterceptor needLogoutInterceptor;
+	
+	@Value("${custom.genFileDirPath}")
+    private String genFileDirPath;
 
 	// 이 함수는 인터셉터를 적용하는 역할을 합니다.
 	@Override
@@ -34,7 +39,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.excludePathPatterns("/favicon.ico");
 		ir.excludePathPatterns("/resource/**");
 		ir.excludePathPatterns("/error");
-
+		
+		//로그아웃 했는데 나오면 안되는 곳
 		ir = registry.addInterceptor(needLoginInterceptor);
 		ir.addPathPatterns("/usr/member/myPage");
 		ir.addPathPatterns("/usr/member/checkPasswore");
@@ -56,6 +62,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/reactionPoint/doCancelBadReaction");
 		ir.addPathPatterns("/usr/member/doDeleteMember");
 		
+		//이미 로그인 한 상태에서 나오면 안되는 곳
 		ir = registry.addInterceptor(needLogoutInterceptor);
 		ir.addPathPatterns("/usr/member/join");
 		ir.addPathPatterns("/usr/member/getLoginIdDup");
@@ -67,4 +74,11 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		ir.addPathPatterns("/usr/member/findLoginPw");
 		ir.addPathPatterns("/usr/member/doFindLoginPw");
 	}
+	
+	//gen을 통해 들어오면 파일 폴더로 이동 ==>genFile을 URL로 접근 가능하도록
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/gen/**").addResourceLocations("file:///" + genFileDirPath + "/")
+                .setCachePeriod(20);
+    }
 }
