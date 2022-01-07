@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="회원정보수정" />
 <%@ include file="../common/head.jspf"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 <script>
 	let MemberModify__submitDone = false;
 	function MemberModify__submit(form) {
@@ -9,15 +10,15 @@
 			return;
 		}
 
-		form.loginPw.value = form.loginPw.value.trim();
+	form.loginPwInput.value = form.loginPwInput.value.trim();
 
-	  if(form.loginPw.value.length == 0) {
+	  if(form.loginPwInput.value.length == 0) {
         alert('새 비밀번호를 입력해주세요.');
-        form.loginPw.focus();
+        form.loginPwInput.focus();
         return;
 	      }
 
-		if (form.loginPw.value.length > 0) {
+		if (form.loginPwInput.value.length > 0) {
 			form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
 
 			if (form.loginPwConfirm.value.length == 0) {
@@ -27,7 +28,7 @@
 				return;
 			}
 
-			if (form.loginPw.value != form.loginPwConfirm.value) {
+			if (form.loginPwInput.value != form.loginPwConfirm.value) {
 				alert('비밀번호확인이 일치하지 않습니다.');
 				form.loginPwConfirm.focus();
 
@@ -52,6 +53,21 @@
 
 			return;
 		}
+		
+		const deleteProfileImgFileInput = form["deleteFile__member__0__extra__profileImg__1"];
+	    if ( deleteProfileImgFileInput.checked ) {
+	        form["file__member__0__extra__profileImg__1"].value = '';
+	    }
+	    const maxSizeMb = 10;
+	    const maxSize = maxSizeMb * 1024 * 1024;
+	    const profileImgFileInput = form["file__member__0__extra__profileImg__1"];
+	    if (profileImgFileInput.value) {
+	        if (profileImgFileInput.files[0].size > maxSize) {
+	            alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+	            profileImgFileInput.focus();
+	            return;
+	        }
+	    }
 
 		form.cellphoneNo.value = form.cellphoneNo.value.trim();
 
@@ -69,7 +85,10 @@
 			form.email.focus();
 
 			return;
-		} 
+		}
+		form.loginPw.value = sha256(form.loginPwInput.value);
+	    form.loginPwInput.value = '';
+	    form.loginPwConfirm.value = '';
 
 		MemberModify__submitDone = true;
 		form.submit();
@@ -78,8 +97,9 @@
 
 <section class="mt-5">
   <div class="container mx-auto px-3">
-    <form class="table-box-type-1" method="POST" action="../member/doModify" onsubmit="MemberModify__submit(this); return false;">
+    <form class="table-box-type-1" enctype="multipart/form-data" method="POST" action="../member/doModify" onsubmit="MemberModify__submit(this); return false;">
     <input type="hidden" name="memberModifyAuthKey" value="${param.memberModifyAuthKey}"/>
+    <input type="hidden" value="loginPw"/>
       <table>
         <colgroup>
           <col width="200" />
@@ -91,7 +111,7 @@
           </tr>
           <tr>
             <th>새 로그인비밀번호</th>
-            <td><input class="input input-bordered" name="loginPw" placeholder="새 비밀번호를 입력해주세요." type="password" /></td>
+            <td><input class="input input-bordered" name="loginPwInput" placeholder="새 비밀번호를 입력해주세요." type="password" /></td>
           </tr>
           <tr>
             <th>새 로그인비밀번호 확인</th>
@@ -105,6 +125,22 @@
             <th>별명</th>
             <td><input class="input input-bordered" name="nickname" placeholder="별명을 입력해주세요." type="text" value="${rq.loginedMember.nickname}" />
             </td>
+          </tr>
+          <tr>
+          	<th>프로필 이미지</th>
+          	<td>
+          		<img class="w-40 h-40 mb-2 object-cover" onerror="${rq.loginedMember.removeProfileImgIfNotExistsOnErrorHtmlAttr}" src="${rq.loginedMember.profileImgUri}" alt="">
+          		<div>
+                    <label class="cursor-pointer label inline-flex">
+                        <span class="label-text mr-2">이미지 삭제</span>
+                        <div>
+                            <input type="checkbox" name="deleteFile__member__0__extra__profileImg__1" class="checkbox" value="Y">
+                            <span class="checkbox-mark"></span>
+                        </div>
+                    </label>
+                </div>
+                <input accept="image/gif, image/jpeg, image/png" type="file" name="file__member__0__extra__profileImg__1" placeholder="프로필 이미지를 선택해주세요." />
+          	</td>
           </tr>
           <tr>
             <th>전화번호</th>

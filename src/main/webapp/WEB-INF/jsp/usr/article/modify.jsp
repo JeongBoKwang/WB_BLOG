@@ -25,7 +25,7 @@
 	}
 </script>
 
-<section class="mt-5">
+<section class="mt-5 cover">
   <div class="container mx-auto px-3">
     <form onsubmit="ArticleModify__submit(this); return false;" class="table-box-type-1" method="POST" action="../article/doModify">
       <input type="hidden" name="body" /> <input type="hidden" name="id" value="${article.id}" />
@@ -77,20 +77,17 @@
           <tr>
             <th>게시글 수정</th>
             <td>
-              <button type="submit" class="btn btn-primary">수정</button>
-              <button type="button" onclick="history.back();" class="btn btn-outline btn-secondary">뒤로가기</button>
+              <button type="submit" class="btn btn-outline">수정</button>
+              <button type="button" onclick="history.back();" class="btn btn-outline">뒤로가기</button>
+              <a class="btn btn-outline" href="../article/detail?id=${article.id}">게시물 상세페이지</a>
+      		  <c:if test="${article.extra__actorCanDelete}">
+        			<a class="btn btn-outline" onclick="if(confirm('정말 삭제하시겠습니까?')== false) return false;" href="../article/doDelete?id=${article.id}">게시물 삭제</a>
+     		  </c:if>
             </td>
           </tr>
         </tbody>
       </table>
     </form>
-
-    <div class="btns">
-      <a class="btn-text-link" href="../article/detail?id=${article.id}">게시물 상세페이지</a>
-      <c:if test="${article.extra__actorCanDelete}">
-        <a class="btn-text-link" onclick="if(confirm('정말 삭제하시겠습니까?')== false) return false;" href="../article/doDelete?id=${article.id}">게시물 삭제</a>
-      </c:if>
-    </div>
   </div>
 </section>
 <%@ include file="../common/foot.jspf"%>

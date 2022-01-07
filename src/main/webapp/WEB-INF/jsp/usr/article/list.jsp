@@ -18,7 +18,7 @@
           <option value="title,body">제목+내용</option>
         </select> <input name="searchKeyword" type="text" value="${param.searchKeyword}" class="ml-2 w-72 input input-bordered" placeholder="검색이름"
           maxlength="20" />
-        <button type="submit" class="ml-2 btn btn-primary">검색</button>
+        <button type="submit" class="ml-2 btn ">검색</button>
       </form>
     </div>
     <div class="mt-3">
@@ -87,7 +87,6 @@
         </c:if>
       </div>
     </div>
-
   </div>
 </section>
 <%@ include file="../common/foot.jspf"%>

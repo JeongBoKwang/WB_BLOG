@@ -2,6 +2,8 @@ package com.example.spring.demo.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +35,7 @@ public class UsrMemberController {
 	@ResponseBody
 	public ResultData getLoginIdDup(String loginId, String name, String email) {
 		if (Ut.empty(loginId)) {
-			return ResultData.from("F-E", "로그인 아이디를 입력해주세요");
+			return ResultData.from("F-E", "로그인 아이디를 입력해주세요.");
 		}
 
 		Member oldMember = memberService.getMemberByLoginId(loginId);
@@ -178,7 +180,7 @@ public class UsrMemberController {
 			replaceUri += "?memberModifyAuthKey=" + memberModifyAuthKey;
 		}
 
-		return rq.jsReplace("", replaceUri);
+		return rq.jsReplace("회원정보 수정페이지로 이동합니다.", replaceUri);
 	}
 
 	// 회원정보 수정
@@ -200,8 +202,8 @@ public class UsrMemberController {
 
 	@RequestMapping("/usr/member/doModify")
 	@ResponseBody
-	public String doModify(String memberModifyAuthKey, String loginPw, String name, String nickname, String cellphoneNo,
-			String email) {
+	public String doModify(HttpServletRequest req, String memberModifyAuthKey, String loginPw, String name, String nickname, String cellphoneNo,
+			String email, MultipartRequest multipartRequest) {
 		if (Ut.empty(memberModifyAuthKey)) {
 			return rq.jsHistoryBack("memberModifyAuthKey(이)가 필요합니다.");
 		}
@@ -235,6 +237,20 @@ public class UsrMemberController {
 
 		ResultData modifyRd = memberService.modify(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNo,
 				email);
+		
+		if ( req.getParameter("deleteFile__member__0__extra__profileImg__1") != null ) {
+            genFileService.deleteGenFile("member", rq.getLoginedMemberId(), "extra", "profileImg", 1);
+        }
+		
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+
+        for (String fileInputName : fileMap.keySet()) {
+            MultipartFile multipartFile = fileMap.get(fileInputName);
+
+            if ( multipartFile.isEmpty() == false ) {
+                genFileService.save(multipartFile, rq.getLoginedMemberId());
+            }
+        }
 
 		return rq.jsReplace(modifyRd.getMsg(), "/");
 	}

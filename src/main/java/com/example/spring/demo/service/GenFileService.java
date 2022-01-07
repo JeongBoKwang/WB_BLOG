@@ -241,4 +241,11 @@ public class GenFileService {
         }
     }
 
+	public void deleteGenFile(String relTypeCode, int relId, String typeCode, String type2Code, int fileNo) {
+		GenFile genFile = genFileRepository.getGenFile(relTypeCode, relId, typeCode, type2Code, fileNo);
+
+        deleteGenFile(genFile);
+		
+	}
+
 }

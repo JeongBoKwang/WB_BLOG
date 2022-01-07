@@ -43,15 +43,16 @@ body {
 	position: absolute;
 	top:45%;
 	left:50%;
-	transform:translate(-10%, -50%);
-	width: 60%;
+	transform:translate(-50%, -40%);
+	color: black;
+	font-size: 20px;
 }
 .table-box-type-2 > table th, .table-box-type-2 td {
   padding: 15px;
 }
 .title > div > h1{
 	text-align: center;
-	font-size: 40px;
+	font-size: 50px;
 }
 .table-box-type-2 > .img {
 	position: absolute;
@@ -65,7 +66,7 @@ body {
 } 
 .bottom-option {
 	position: absolute;
-	top:69%;
+	top:75%;
 	left:50%;
 	transform:translate(-50%, -50%);
 }
@@ -80,4 +81,153 @@ body {
 .bottom-option > button{
 	margin-right: 35px;
 	font-size: 20px;
+}
+/* 탑바 시작 */
+:root {
+  --top-bar__color-1:#f1f1f1;
+}
+
+.top-bar {
+  /* .bg-white */
+  background-color:white;
+  height: 3rem;
+  font-size: 17px;
+  opacity: 0.8;
+}
+.gnb {
+	position: absolute;
+	right: 5%;
+}
+.top-bar + * {
+  padding-top: 4rem;
+}
+
+/* 탑바 - 메뉴 박스 시작 */
+.top-bar .menu-box-1 {
+  overflow-x:auto;
+}
+
+/* 탑바 - 메뉴 박스 - 터치 불가능한 경우 스크롤바 제거 */
+.touch-imposible .menu-box-1::-webkit-scrollbar
+{
+  width: 0;
+  height: 0;
+}
+
+/* 탑바 - 메뉴 박스 - 더보기 그림자 시작 */
+.top-bar .container {
+  position:relative;
+}
+
+.top-bar .container::after {
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:40px;
+  height:100%;
+  background-image:linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+  pointer-events:none;
+}
+/* 탑바 - 메뉴 박스 - 더보기 그림자 끝 */
+
+/* 탑바 - 메뉴 박스 - 아이템 시작 */
+.top-bar .menu-box-1 ul > li > a > span {
+  white-space:nowrap;
+}
+.top-bar .menu-box-1 ul > li:hover > a {
+  background-color:var(--top-bar__color-1);
+}
+/* 탑바 - 메뉴 박스 - 아이템 끝 */
+
+/* 탑바 - 메뉴 박스 - 2차 메뉴 시작 */
+.top-bar .menu-box-1 > ul > li:hover > div {
+  display:block;
+}
+
+.top-bar .menu-box-1 > ul > li > div {
+  position:fixed;
+  left:0;
+  width:100%;
+  display:none;
+  background-color:white;
+  /* .shadow-lg */
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.top-bar .menu-box-1 > ul > li > div > h1 > a {
+  display:flex;
+  background-color:flex;
+  justify-content:center;
+  padding:.5rem 0;
+  background-color:var(--top-bar__color-1);
+}
+
+.top-bar .menu-box-1 > ul > li > div > ul > li > a {
+  display:flex;
+  background-color:flex;
+  justify-content:center;
+  padding:.5rem 0;
+}
+/* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
+
+.top-bar--fly {
+  top:0;
+  left:0;
+  width:100%;
+  z-index:50;
+  position:fixed;
+}
+/* 탑바 끝 */
+/* 배경화면 */
+html {
+	background: url(/resource/img/background1.jpg) no-repeat;
+	background-size: cover;
+	height: 100vh;
+}
+.cover {
+	background: url(/resource/img/background1.jpg) no-repeat;
+	background-size: cover;
+}
+/* 배경화면 끝 */
+.box {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform:translate(-50%, -60%);
+	background: white;
+	opacity: 0.3;
+	width: 700px;
+	height: 200px;
+}
+.welcome{
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform:translate(-50%, -60%);
+	color: black;
+	font-size: 70px;
+	padding: 20px;
+}
+/* 회원가입폼 시작 */
+.join {
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	transform: translate(-50%, -90%);
+}
+.join > .submit bottom {
+	position: absolute;
+	top: 150%;
+	left: 50%;
+	transform: translate(-50%, -150%);
+}
+/* 회원가입폼 끝 */
+/* 로그인폼 시작 */
+.login {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -40%);
 }

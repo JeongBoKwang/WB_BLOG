@@ -27,43 +27,44 @@ function MemberLogin__submitForm(form) {
     MemberLogin__submitFormDone = true;
 }
 </script>
-<div class="section section-article-list px-3">
+<div class="section section-article-list px-3 login">
 	<div class="container mx-auto">
 	    <form method="POST" action="../member/doLogin" onsubmit="MemberLogin__submitForm(this); return false;">
 	        <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-          <input type="hidden" name="loginPw"/>
-	          <div class="form-control">
+          	<input type="hidden" name="loginPw"/>
+	          <div class="form-control w-96">
                 <label class="label">
-                    로그인아이디
+                   	아이디
                 </label>
-                <input class="input input-bordered w-full" type="text" maxlength="30" name="loginId" placeholder="로그인아이디를 입력해주세요." />
-            </div>
-            <div class="form-control">
+                <input class="input input-bordered w-full" type="text" maxlength="30" name="loginId" placeholder="아이디를 입력해주세요." />
+              </div>
+            <div class="form-control w-96">
                 <label class="label">
-                    로그인비밀번호
+                   	비밀번호
                 </label>
-                <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPwInput" placeholder="로그인비밀번호를 입력해주세요." />
+                <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPwInput" placeholder="비밀번호를 입력해주세요." />
             </div>
             <div class="mt-4 btn-wrap gap-1">
-                <button type="submit" class="btn btn-primary btn-sm mb-1">
+                <button type="submit" class="btn btn-ghost">
                     <span><i class="fas fa-sign-in-alt"></i></span>
                     &nbsp;
                     <span>로그인</span>
                 </button>
 
-                <a href="../member/findLoginId" type="submit" class="btn btn-link btn-sm mb-1">
+                <a href="../member/findLoginId" type="submit" class="link link-hover">
                     <span><i class="fas fa-sign-in-alt"></i></span>
                     &nbsp;
                     <span>아이디 찾기</span>
                 </a>
 
-                <a href="../member/findLoginPw" type="submit" class="btn btn-link btn-sm mb-1">
+                <a href="../member/findLoginPw" type="submit" class="link link-hover">
                     <span><i class="fas fa-sign-in-alt"></i></span>
                     &nbsp;
                     <span>비밀번호 찾기</span>
                 </a>
 
-                <a href="#" class="btn btn-link btn-sm mb-1">
+                <a href="/" class="link link-hover">
+                	&nbsp;
                     <span><i class="fas fa-home"></i></span>
                     &nbsp;
                     <span>홈</span>

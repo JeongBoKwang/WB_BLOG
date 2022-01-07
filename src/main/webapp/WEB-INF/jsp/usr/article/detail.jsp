@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="게시물 상세" />
-<%@ include file="../../common/toastUiEditorLib.jspf"%>
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../../common/toastUiEditorLib.jspf"%>
 <script>
 	const params = {};
 	params.id = parseInt('${param.id}');
@@ -35,41 +35,66 @@
 	})
 </script>
 
-<section class="mt-5">
+<script>
+  //댓글작성
+  let ReplyWrite__submitFormDone = false;
+  function ReplyWrite__submitForm(from) {
+    if (ReplyWrite__submitFormDone) {
+      return;
+    }
+
+    //좌우공백 제거
+    form.body.value = form.body.value.trim();
+
+    if (form.body.value.length == 0) {
+      alert('댓글을 입력해주세요.');
+      form.body.focus();
+      return;
+    }
+
+    if (form.body.value.length < 2) {
+      alert('댓글내용을 2자이상 입력해주세요.');
+      form.body.focus();
+      return;
+    }
+
+    ReplyWrite__submitFormDone = true;
+    form.submit();
+  }
+</script>
+
+<section class="mt-5 cover">
   <div class="container mx-auto px-3">
     <div class="table-box-type-1">
       <table>
         <colgroup>
-          <col width="200" />
+          <col width="15%" />
+          <col width="35%" />
+          <col width="15%" />
+          <col width="*" />
         </colgroup>
         <tbody>
           <tr>
             <th>작성자</th>         
             <td>${article.extra__writerName}</td>
-          </tr>	
-          <tr>
             <th>번호</th>
             <td>
-              <div class="badge badge-primary">${article.id}</div>
+              <div>${article.id}</div>
             </td>
           </tr>
           <tr>
             <th>작성날짜</th>
             <td>${article.regDateForPrintType2}</td>
-          </tr>
-          <tr>
             <th>수정날짜</th>
             <td>${article.updateDateForPrintType2}</td>
           </tr>     
           <tr>
             <th>조회</th>
             <td><span class="article-detail__hit-count">${article.hitCount}</span></td>
-          </tr>
-          <tr>
             <th>추천</th>
             <td>
               <div class="flex items-center">
-                <span class="badge badge-primary">${article.goodReactionPoint}</span> <span>&nbsp;</span>
+                <span>${article.goodReactionPoint}</span> <span>&nbsp;</span>
 
                 <c:if test="${actorCanMakeReactionPoint}">
                   <span>&nbsp;</span>
@@ -100,12 +125,16 @@
           </tr>
           <tr>
             <th>제목</th>
-            <td>${article.title}</td>
+            <td colspan="3">${article.title}</td>
           </tr>
           <tr>
             <th>내용</th>
-            <td>
-              ${article.bodyForPrint}
+            <td colspan="3">
+              <div class="toast-ui-viewer">
+                <script type="text/x-template">
+					${article.body}
+				</script>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -114,50 +143,20 @@
 
     <div class="btns">
       <c:if test="${empty param.listUri}">
-        <button class="btn btn-link" type="button" onclick="history.back();">뒤로가기</button>
+        <button class="btn btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
       </c:if>
       <c:if test="${not empty param.listUri}">
-        <a class="btn btn-link" href="${param.listUri}">뒤로가기</a>
+        <a class="btn btn-ghost" href="${param.listUri}">뒤로가기</a>
       </c:if>
       <c:if test="${article.extra__actorCanModify}">
-        <a class="btn btn-link" href="../article/modify?id=${article.id}">게시물 수정</a>
+        <a class="btn btn-ghost" href="../article/modify?id=${article.id}">게시물 수정</a>
       </c:if>
       <c:if test="${article.extra__actorCanDelete}">
-        <a class="btn btn-link" onclick="if(confirm('정말 삭제하시겠습니까?')== false) return false;" href="../article/doDelete?id=${article.id}">게시물 삭제</a>
+        <a class="btn btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?')== false) return false;" href="../article/doDelete?id=${article.id}">게시물 삭제</a>
       </c:if>
     </div>
   </div>
-</section>
 
-<script>
-  //댓글작성
-  let ReplyWrite__submitFormDone = false;
-  function ReplyWrite__submitForm(from) {
-    if (ReplyWrite__submitFormDone) {
-      return;
-    }
-
-    //좌우공백 제거
-    form.body.value = form.body.value.trim();
-
-    if (form.body.value.length == 0) {
-      alert('댓글을 입력해주세요.');
-      form.body.focus();
-      return;
-    }
-
-    if (form.body.value.length < 2) {
-      alert('댓글내용을 2자이상 입력해주세요.');
-      form.body.focus();
-      return;
-    }
-
-    ReplyWrite__submitFormDone = true;
-    form.submit();
-  }
-</script>
-
-<section class="mt- 5">
   <div class="container mx-auto px-3">
     <h1 class="mb-3">댓글작성</h1>
     <c:if test="${rq.logined}">
@@ -175,12 +174,12 @@
             </tr>
             <tr>
               <th>내용</th>
-              <td><textarea class="w-full textarea textarea-bordered" name="body" rows="2" placeholder="댓글을 입력해주세요"></textarea></td>
+              <td><textarea style = "resize:none" class="w-full textarea textarea-bordered" name="body" rows="2" placeholder="댓글을 입력해주세요"></textarea></td>
             </tr>
             <tr>
               <th>댓글 작성</th>
               <td>
-                <button type="submit" class="btn btn-primary">작성</button>
+                <button type="submit" class="btn">작성</button>
               </td>
             </tr>
           </tbody>
@@ -191,10 +190,9 @@
       <a class="link link-primary" href="${rq.loginUri}">로그인</a> 후 이용해주세요
    </c:if>
   </div>
-</section>
 
-<section class="mt-5">
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-3 mt-3">
+    
     <h1>댓글 리스트(${replies.size()})</h1>
 
     <table class="table table-fixed w-full">
@@ -222,8 +220,8 @@
         <c:forEach var="reply" items="${replies}">
           <tr class="align-top">
             <td>${reply.id}</td>
-            <td>${reply.regDateForPrintType2}</td>
-            <td>${reply.updateDateForPrintType2}</td>
+            <td>${reply.regDateForPrint}</td>
+            <td>${reply.updateDateForPrint}</td>
             <td>${reply.goodReactionPoint}</td>
             <td>${reply.extra__writerName}</td>
             <td>${reply.bodyForPrint}</td>

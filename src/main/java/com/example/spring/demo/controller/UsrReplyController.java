@@ -37,7 +37,7 @@ public class UsrReplyController {
 		}
 		
 		if(Ut.empty(body)) {
-			return rq.jsHistoryBack("body(을)를 입력해주세요.");
+			return rq.jsHistoryBack("댓글을 입력해주세요.");
 		}
 		
 		ResultData<Integer> writeReplyRd = replyService.writeReply(rq.getLoginedMemberId(), relTypeCode, relId, body);
