@@ -27,6 +27,7 @@ function MemberLogin__submitForm(form) {
     MemberLogin__submitFormDone = true;
 }
 </script>
+
 <div class="section section-article-list px-3 login">
 	<div class="container mx-auto">
 	    <form method="POST" action="../member/doLogin" onsubmit="MemberLogin__submitForm(this); return false;">
@@ -72,5 +73,17 @@ function MemberLogin__submitForm(form) {
             </div>
 	    </form>
 	</div>
+</div>
+<div id="footerwraplogin">
+		<div class="footerlogo-login"></div>
+        <div class="footer after">
+        	<div class="mail">
+        		<i class="far fa-envelope"></i>
+        	</div>
+        	<p class="mail-ad">inchby112@gmail.com</p>
+            <p class="blog-copy">
+            	Copyright ⓒ 2021. Jeong Bo-Kwang. All rights reserved
+            </p> 
+        </div>
 </div>
 <%@ include file="../common/foot.jspf"%>

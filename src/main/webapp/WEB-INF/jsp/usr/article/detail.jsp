@@ -64,7 +64,7 @@
 </script>
 
 <section class="mt-5 cover">
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-20">
     <div class="table-box-type-1">
       <table>
         <colgroup>
@@ -157,7 +157,7 @@
     </div>
   </div>
 
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-20">
     <h1 class="mb-3">댓글작성</h1>
     <c:if test="${rq.logined}">
       <form onsubmit="ReplyWrite__submitForm(this); return false;" class="table-box-type-1" method="POST" action="../reply/doWrite">
@@ -191,7 +191,7 @@
    </c:if>
   </div>
 
-  <div class="container mx-auto px-3 mt-3">
+  <div class="container mx-auto px-20 mt-3">
     
     <h1>댓글 리스트(${replies.size()})</h1>
 

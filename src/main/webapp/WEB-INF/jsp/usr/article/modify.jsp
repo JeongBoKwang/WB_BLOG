@@ -26,7 +26,7 @@
 </script>
 
 <section class="mt-5 cover">
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-20">
     <form onsubmit="ArticleModify__submit(this); return false;" class="table-box-type-1" method="POST" action="../article/doModify">
       <input type="hidden" name="body" /> <input type="hidden" name="id" value="${article.id}" />
       <table>

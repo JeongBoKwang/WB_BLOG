@@ -13,6 +13,12 @@
         </colgroup>
         <tbody>
           <tr>
+          	<td class="profile-img">
+          		<img class="w-40 h-40 object-cover " onerror="${rq.loginedMember.profileFallbackImgOnErrorHtmlAttr}" src="${rq.loginedMember.profileImgUri}" alt="">
+          		<span>프로필 이미지</span>
+          	</td>
+          </tr>
+          <tr>
             <th>로그인아이디  |</th>
             <td>
               ${rq.loginedMember.loginId}

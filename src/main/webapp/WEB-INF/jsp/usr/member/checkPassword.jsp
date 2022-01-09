@@ -22,7 +22,7 @@ function MemberCheckPassword__submitForm(form) {
 }
 </script>
 <section class="mt-5">
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-20">
     <form onsubmit="MemberCheckPassword__submitForm(this); return false;" class="table-box-type-1" method="POST" action="../member/doCheckPassword">
       <input type="hidden" name="replaceUri" value="${param.replaceUri}" />
       <input type="hidden" name="loginPw"/>
@@ -42,8 +42,8 @@ function MemberCheckPassword__submitForm(form) {
           <tr>
             <th>비밀번호 확인</th>
             <td>
-              <button type="submit" class="btn btn-primary">비밀번호 확인</button>
-              <button type="button" class="btn btn-outline btn-secondary" onclick="history.back();">뒤로가기</button>
+              <button type="submit" class="btn">비밀번호 확인</button>
+              <button type="button" class="btn btn-outline" onclick="history.back();">뒤로가기</button>
             </td>
           </tr>
         </tbody>

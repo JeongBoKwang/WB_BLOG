@@ -3,7 +3,7 @@
 <c:set var="pageTitle" value="${board.name} 게시물 리스트" />
 <%@ include file="../common/head.jspf"%>
 <section class="mt-5">
-  <div class="container mx-auto px-3">
+  <div class="container mx-auto px-20">
     <div class="flex">
       <div>
         게시물 개수 : <span>${articlesCount}</span>개

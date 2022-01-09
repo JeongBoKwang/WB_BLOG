@@ -64,13 +64,14 @@
 			form.name.focus();
 			return;
 		}
-    
+    	
 		form.nickname.value = form.nickname.value.trim();
 		if (form.nickname.value.length == 0) {
 			alert('닉네임을 입력해주세요.');
 			form.nickname.focus();
 			return;
 		}
+		const maxSizeMb = 10;
 		
 		const maxSize = maxSizeMb * 1024 * 1024;
 	    const profileImgFileInput = form["file__member__0__extra__profileImg__1"];
@@ -96,9 +97,9 @@
 			return;
 		}
 
-	  form.loginPw.value = sha256(form.loginPwInput.value);
-      form.loginPwInput.value = '';
-      form.loginPwConfirm.value = '';
+	    form.loginPw.value = sha256(form.loginPwInput.value);
+        form.loginPwInput.value = '';
+        form.loginPwConfirm.value = '';
     
 		submitJoinFormDone = true;
 		form.submit();
@@ -149,6 +150,7 @@
     <form class="table-box-type-1" method="POST" enctype="multipart/form-data" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
       <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
       <input type="hidden" name="loginPw"/>
+      	<div class="join-bg"></div>
       	<div class="form-control w-96 join">
   		<label class="label">
     		<span class="label-text">아이디</span>
@@ -198,4 +200,5 @@
     </form>
   </div>
 </section>
+
 <%@ include file="../common/foot.jspf"%>

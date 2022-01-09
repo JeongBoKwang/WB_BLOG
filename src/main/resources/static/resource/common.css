@@ -38,21 +38,30 @@ html > body {
 body {
   min-width: 800px;
 }
-/* My Information */
+html, body{
+	height: 100%;
+}
+/* 회원정보 */
 .table-box-type-2 > table {
 	position: absolute;
 	top:45%;
-	left:50%;
-	transform:translate(-50%, -40%);
+	left:55%;
+	transform:translate(-55%, -40%);
 	color: black;
 	font-size: 20px;
 }
+.profile-img {
+	position: absolute;
+	left: -40%;
+}
+/* 회원정보 끝 */
 .table-box-type-2 > table th, .table-box-type-2 td {
   padding: 15px;
 }
 .title > div > h1{
 	text-align: center;
-	font-size: 50px;
+	font-size: 40px;
+	margin-top: 40px;
 }
 .table-box-type-2 > .img {
 	position: absolute;
@@ -67,8 +76,8 @@ body {
 .bottom-option {
 	position: absolute;
 	top:75%;
-	left:50%;
-	transform:translate(-50%, -50%);
+	left:55%;
+	transform:translate(-55%, -50%);
 }
 .bottom-option > a:first-child {
 	margin-right: 35px;
@@ -86,7 +95,9 @@ body {
 :root {
   --top-bar__color-1:#f1f1f1;
 }
-
+.logo > span {
+	font-size: 25px;
+}
 .top-bar {
   /* .bg-white */
   background-color:white;
@@ -98,9 +109,9 @@ body {
 	position: absolute;
 	right: 5%;
 }
-.top-bar + * {
+/* .top-bar + * {
   padding-top: 4rem;
-}
+} */
 
 /* 탑바 - 메뉴 박스 시작 */
 .top-bar .menu-box-1 {
@@ -180,42 +191,218 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
   position:fixed;
 }
 /* 탑바 끝 */
-/* 배경화면 */
-html {
-	background: url(/resource/img/background1.jpg) no-repeat;
-	background-size: cover;
-	height: 100vh;
+/* 메인화면 시작 */
+#headerwrap {
+    width: 100%;
 }
-.cover {
-	background: url(/resource/img/background1.jpg) no-repeat;
-	background-size: cover;
+.after::after {
+    display: block;
+    clear: both;
+    content: "";
 }
-/* 배경화면 끝 */
-.box {
+
+.main {
+    width: 100%;
+    height: 900px;
+    background: url(img/bglogo.jpg) no-repeat;
+    background-size: cover;
+    position: relative;
+}
+.main>h1 {
+    font-size: 70px;
+    position: absolute;
+    top: 30%;
+    left: 55%;
+}
+.main>p {
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 54%;
+    font-size: 40px;
+}
+.main>h4 {
+    background: #555;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    padding: 10px 35px;
+}
+/* 메인화면 끝 */
+/* content 시작 */
+#contents {
+    width: 100%;
+}
+.con {
+    margin-bottom: 70px;
+}
+.con1 {
+    width: 100%;
+    height: 700px;
+    position: relative;
+}
+.con1 > .con-body {
+	font-size: 30px;
 	position: absolute;
-	top: 60%;
-	left: 50%;
-	transform:translate(-50%, -60%);
-	background: white;
-	opacity: 0.3;
-	width: 700px;
-	height: 200px;
+	top: 15%;
+	left: 10%;
 }
-.welcome{
+.con1>.box1 {
+    position: absolute;
+    top: 21.4%;
+    left: 9%;
+}
+.box1 {
+    width: 400px;
+    height: 400px;
+}
+.con1>.box2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.box2 {
+    width: 400px;
+    height: 400px;
+}
+.con1>.box3 {
+    position: absolute;
+    top: 21.4%;
+    left: 67%;
+}
+.box3 {
+    width: 400px;
+    height: 400px;
+}
+.box1>.bg1 {
+    background: url(img/con2-1.png) no-repeat;
+    background-size: cover;
+    width: 400px;
+    height: 350px;
+}
+.box2>.bg2 {
+    background: url(img/con2-2.png) no-repeat;
+    background-size: cover;
+    width: 400px;
+    height: 350px;
+}
+.box3>.bg3 {
+    background: url(img/con2-3.png) no-repeat;
+    background-size: cover;
+    width: 400px;
+    height: 350px;
+}
+.box1>.a>p {
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 10px;
+}
+.box1>.a::after {
+    display: block;
+    content: "";
+    width: 130px;
+    height: 2px;
+    background: skyblue;
+    position: absolute;
+    left: 35%;
+}
+.box2>.b>p {
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 10px;
+}
+.box2>.b::after {
+    display: block;
+    content: "";
+    width: 130px;
+    height: 2px;
+    background: skyblue;
+    position: absolute;
+    left: 35%;
+}
+.box3>.c>p {
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+    margin-top: 10px;
+}
+.box3>.c::after {
+    display: block;
+    content: "";
+    width: 120px;
+    height: 2px;
+    background: skyblue;
+    position: absolute;
+    left: 35%;
+}
+/* content 끝 */
+/* footer 시작 */
+#footerwrap {
+    width: 100%;
+    height: 150px;
+    background: #3d3d3d;
+    position: relative;
+}
+.footer > .mail {
+	color: white;
+    font-size: 14px;
+    padding: 3px 7px;
+    text-align: center;
+    width: 350px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    float: left;
+    line-height: 30px;
+    left: 40%;
+}
+.footer > .mail-ad{
+	color: white;
+    font-size: 14px;
+    padding: 3px 7px;
+    text-align: center;
+    width: 350px;
+    height: 30px;
+    position: absolute;
+    top: 45%;
+    float: left;
+    line-height: 30px;
+    left: 41%;
+}
+.footer>.blog-copy {
+		color: white;
+        font-size: 13px;
+        padding: 3px 7px;
+        text-align: center;
+        width: 350px;
+        height: 30px;
+        position: absolute;
+        top: 55%;
+        float: left;
+        line-height: 30px;
+        left: 40%;
+}
+.footerlogo {
+	background: url(img/logo.jpg) no-repeat;
+	background-size: cover;
 	position: absolute;
-	top: 60%;
-	left: 50%;
-	transform:translate(-50%, -60%);
-	color: black;
-	font-size: 70px;
-	padding: 20px;
+	width: 180px;
+	height: 100px;
+	top: 15%;
+	left: 29%;
 }
+/* footer 끝 */
 /* 회원가입폼 시작 */
 .join {
 	position: absolute;
-	top: 90%;
+	top: 270%;
 	left: 50%;
-	transform: translate(-50%, -90%);
+	transform: translate(-50%, -270%);
 }
 .join > .submit bottom {
 	position: absolute;
@@ -223,11 +410,78 @@ html {
 	left: 50%;
 	transform: translate(-50%, -150%);
 }
+.join-bg {
+	background: url(img/joinbg5.jpg) no-repeat;
+	background-size: cover;
+	width: 800px;
+	height: 600px;
+	position: absolute;
+	left: 21%;
+	opacity: 0.7;
+	top: 18%;
+}
 /* 회원가입폼 끝 */
 /* 로그인폼 시작 */
 .login {
 	position: absolute;
-	top: 40%;
+	top: 60%;
 	left: 50%;
-	transform: translate(-50%, -40%);
+	transform: translate(-50%, -60%);
+	height: 400px;
 }
+#footerwraplogin {
+    width: 100%;
+    height: 230px;
+    background: #3d3d3d;
+    position: absolute;
+    top: 80%;
+}
+.footer > .mail {
+	color: white;
+    font-size: 14px;
+    padding: 3px 7px;
+    text-align: center;
+    width: 350px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    float: left;
+    line-height: 30px;
+    left: 40%;
+}
+.footer > .mail-ad{
+	color: white;
+    font-size: 14px;
+    padding: 3px 7px;
+    text-align: center;
+    width: 350px;
+    height: 30px;
+    position: absolute;
+    top: 45%;
+    float: left;
+    line-height: 30px;
+    left: 41%;
+}
+.footer>.blog-copy {
+		color: white;
+        font-size: 13px;
+        padding: 3px 7px;
+        text-align: center;
+        width: 350px;
+        height: 30px;
+        position: absolute;
+        top: 55%;
+        float: left;
+        line-height: 30px;
+        left: 40%;
+}
+.footerlogo-login {
+	background: url(img/logo.jpg) no-repeat;
+	background-size: cover;
+	position: absolute;
+	width: 180px;
+	height: 100px;
+	top: 28%;
+	left: 29%;
+}
+/* 로그인폼 끝 */

@@ -24,7 +24,7 @@ function MemberFindLoginId__submitForm(form) {
     MemberFindLoginId__submitFormDone = true;
 }
 </script>
-<div class="section section-article-list px-3">
+<div class="section section-article-list px-20">
 	<div class="container mx-auto">
 	    <form method="POST" action="/usr/member/doFindLoginId" onsubmit="MemberFindLoginId__submitForm(this); return false;">
 	        <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
@@ -41,31 +41,31 @@ function MemberFindLoginId__submitForm(form) {
                 <input class="input input-bordered w-full" type="email" maxlength="100" name="email" placeholder="이메일을 입력해주세요." />
             </div>
             <div class="mt-4 btn-wrap gap-1">
-                <button type="submit" class="btn btn-primary btn-sm mb-1">
+                <button type="submit" class="btn btn-ghost btn-sm mb-1">
                     <span><i class="fas fa-sign-in-alt"></i></span>
                     &nbsp;
                     <span>아이디 찾기</span>
                 </button>
                 
-                <a href="../member/login" class="btn btn-primary btn-sm mb-1">
+                <a href="../member/login" class="btn btn-ghost btn-sm mb-1">
                     <span><i class="fas fa-sign-in-alt"></i></span>
                     &nbsp;
                     <span>로그인</span>
                 </a>
 
-                <a href="../member/join" type="submit" class="btn btn-link">
-                    <span><i class="fas fa-sign-in-alt"></i></span>
+                <a href="../member/join" type="submit" class="link link-hover">
+                    <span><i class="fas fa-user"></i></span>
                     &nbsp;
                     <span>회원가입</span>
                 </a>
 
-                <a href="../member/findLoginPw" type="submit" class="btn btn-link btn-sm mb-1">
+                <a href="../member/findLoginPw" type="submit" class="link link-hover btn-sm mb-1">
                     <span><i class="fas fa-sign-in-alt"></i></span>
                     &nbsp;
                     <span>비밀번호 찾기</span>
                 </a>
 
-                <a href="#" class="btn btn-link btn-sm mb-1">
+                <a href="#" class="link link-hover btn-sm mb-1">
                     <span><i class="fas fa-home"></i></span>
                     &nbsp;
                     <span>홈</span>

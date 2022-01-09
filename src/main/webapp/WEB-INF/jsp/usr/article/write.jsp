@@ -31,7 +31,7 @@
 </script>
 
 <section class="mt-5 cover">
-  <div class="container mx-auto px-3 cover">
+  <div class="container mx-auto px-20 cover">
     <form onsubmit="submitWriteForm(this); return false;" class="table-box-type-1" method="POST" action="../article/doWrite">
     <input type="hidden" name="body"/>   
       <table>
