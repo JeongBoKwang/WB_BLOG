@@ -77,8 +77,8 @@
           <tr>
             <th>댓글수정</th>
             <td>
-              <button type="submit" class="btn btn-primary">수정</button>
-              <a class="btn btn-secondary btn-outline" href="${param.replaceUri}">뒤로가기</a>
+              <button type="submit" class="btn">수정</button>
+              <a class="btn btn-outline" href="${param.replaceUri}">뒤로가기</a>
             </td>
           </tr>
         </tbody>

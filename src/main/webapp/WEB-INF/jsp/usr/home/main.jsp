@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="../common/head.jspf"%>
 <div id="headerwrap">
         <div class="main after">
             <div class="pi"></div>
@@ -48,5 +49,4 @@
             </p> 
         </div>
 </div>
-<%@ include file="../common/head.jspf"%>
 <%@ include file="../common/foot.jspf"%>

@@ -74,8 +74,8 @@ function MemberLogin__submitForm(form) {
 	    </form>
 	</div>
 </div>
-<div id="footerwraplogin">
-		<div class="footerlogo-login"></div>
+<div id="footerwrap_member">
+		<div class="footerlogo_member"></div>
         <div class="footer after">
         	<div class="mail">
         		<i class="far fa-envelope"></i>

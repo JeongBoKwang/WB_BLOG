@@ -77,12 +77,12 @@
 	}
 </script>
 
-<div class="section section-member-modify px-20">
+<div class="section section-member-modify px-20 member_modify">
 	<div class="container mx-auto">
 	    <form method="POST" enctype="multipart/form-data" action="doModify" onsubmit="MemberModify__submitForm(this); return false;">
 	        <input type="hidden" name="memberModifyAuthKey" value="${param.memberModifyAuthKey}">
 	        <input type="hidden" name="loginPw">
-	        <div class="form-control">
+	        <div class="form-control w-96">
                 <label class="label">
                     로그인아이디
                 </label>
@@ -91,28 +91,28 @@
                 </div>
             </div>
 
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     새로그인비밀번호
                 </label>
                 <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPwInput" placeholder="로그인비밀번호를 입력해주세요." />
             </div>
 
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     로그인비밀번호 확인
                 </label>
                 <input class="input input-bordered w-full" type="password" maxlength="30" name="loginPwConfirm" placeholder="로그인비밀번호 확인을 입력해주세요." />
             </div>
 
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     이름
                 </label>
                 <input value="${rq.loginedMember.name}" class="input input-bordered w-full" type="text" maxlength="30" name="name" placeholder="이름을 입력해주세요." />
             </div>
 
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     별명
                 </label>
@@ -139,14 +139,14 @@
 
 
 
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     휴대전화번호
                 </label>
                 <input value="${rq.loginedMember.cellphoneNo}" class="input input-bordered w-full" type="tel" maxlength="30" name="cellphoneNo" placeholder="휴대전화번호를 입력해주세요." />
             </div>
 
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     이메일
                 </label>
@@ -174,5 +174,17 @@
             </div>
 	    </form>
 	</div>
+</div>
+<div id="footerwrap_member">
+		<div class="footerlogo_member"></div>
+        <div class="footer after">
+        	<div class="mail">
+        		<i class="far fa-envelope"></i>
+        	</div>
+        	<p class="mail-ad">inchby112@gmail.com</p>
+            <p class="blog-copy">
+            	Copyright ⓒ 2021. Jeong Bo-Kwang. All rights reserved
+            </p> 
+        </div>
 </div>
 <%@ include file="../common/foot.jspf"%>

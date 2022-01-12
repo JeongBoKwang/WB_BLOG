@@ -43,10 +43,23 @@
         </tbody>
       </table>
       <div class="bottom-option">
-      	 <a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-ghost">회원정보수정</a>
-         <a onclick="if(confirm('회원 탈퇴를 하시겠습니까?')==false) return false;" href="../member/doDeleteMember?id=${rq.loginedMember.id}" class="btn btn-ghost">회원 탈퇴</a>
-         <button type="button" class="btn btn-ghost" onclick="history.back();">뒤로가기</button>
+      	 <a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-outline">회원정보수정</a>
+         <a onclick="if(confirm('회원 탈퇴를 하시겠습니까?')==false) return false;" href="../member/doDeleteMember?id=${rq.loginedMember.id}" class="btn btn-outline">회원 탈퇴</a>
+         <button type="button" class="btn btn-outline" onclick="history.back();">뒤로가기</button>
       </div>
     </div>
   </div>
 </section>
+
+<div id="footerwrap_member">
+		<div class="footerlogo_member"></div>
+        <div class="footer after">
+        	<div class="mail">
+        		<i class="far fa-envelope"></i>
+        	</div>
+        	<p class="mail-ad">inchby112@gmail.com</p>
+            <p class="blog-copy">
+            	Copyright ⓒ 2021. Jeong Bo-Kwang. All rights reserved
+            </p> 
+        </div>
+</div>

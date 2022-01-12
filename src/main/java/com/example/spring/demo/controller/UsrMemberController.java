@@ -30,7 +30,7 @@ public class UsrMemberController {
 		this.rq = rq;
 	}
 
-	// 회원가입 시 중복아이디, 이메일, 이름 체크
+	// 회원가입 시 중복아이디 체크
 	@RequestMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public ResultData getLoginIdDup(String loginId, String name, String email) {
@@ -60,37 +60,29 @@ public class UsrMemberController {
 		if (Ut.empty(loginId)) {
 			return rq.jsHistoryBack("loginId(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(loginPw)) {
 			return rq.jsHistoryBack("loginPw(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(name)) {
 			return rq.jsHistoryBack("name(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(nickname)) {
 			return rq.jsHistoryBack("nickname(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(cellphoneNo)) {
 			return rq.jsHistoryBack("cellphoneNo(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(email)) {
 			return rq.jsHistoryBack("email(을)를 입력해주세요.");
 		}
-
 		ResultData<Integer> joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNo, email);
 
 		if (joinRd.isFail()) {
 			return rq.jsHistoryBack(joinRd.getResultCode(), joinRd.getMsg());
-		}
-		
+		}		
 		int newMemberId = (int)joinRd.getData1();
 		
-		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-		
+		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();		
 		for(String fileInputName : fileMap.keySet()) {
 			MultipartFile multipartFile = fileMap.get(fileInputName);
 			
@@ -116,29 +108,23 @@ public class UsrMemberController {
 		if (Ut.empty(loginId)) {
 			return rq.jsHistoryBack("로그인 아이디를 입력해주세요.");
 		}
-
 		if (Ut.empty(loginPw)) {
 			return rq.jsHistoryBack("로그인 비밀번호를 입력해주세요.");
 		}
-
 		Member member = memberService.getMemberByLoginId(loginId);
 
 		if (member == null) {
 			return rq.jsHistoryBack("존재하지 않은 로그인 아이디 입니다.");
 		}
-
 		if (member.getLoginPw().equals(loginPw) == false) {
 			return rq.jsHistoryBack("비밀번호가 일치하지 않습니다.");
 		}
-
 		rq.login(member);
 		
-		boolean isUsingTempPassword = memberService.isUsingTempPassword(member.getId());
-		
+		boolean isUsingTempPassword = memberService.isUsingTempPassword(member.getId());		
 		if(isUsingTempPassword) {
 			return rq.jsReplace("임시 비밀번호를 변경해주세요.", "/usr/member/myPage");
 		}
-
 		return rq.jsReplace(Ut.f("%s님 환영합니다.", member.getNickname()), afterLoginUri);
 	}
 
@@ -207,41 +193,31 @@ public class UsrMemberController {
 		if (Ut.empty(memberModifyAuthKey)) {
 			return rq.jsHistoryBack("memberModifyAuthKey(이)가 필요합니다.");
 		}
-
 		ResultData checkMemberModifyAuthKeyRd = memberService.checkMemberModifyAuthKey(rq.getLoginedMemberId(),
 				memberModifyAuthKey);
-
 		if (checkMemberModifyAuthKeyRd.isFail()) {
 			return rq.jsHistoryBack(checkMemberModifyAuthKeyRd.getMsg());
 		}
-
 		if (Ut.empty(loginPw)) {
 			loginPw = null;
 		}
-
 		if (Ut.empty(name)) {
 			return rq.jsHistoryBack("name(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(nickname)) {
 			return rq.jsHistoryBack("nickname(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(cellphoneNo)) {
 			return rq.jsHistoryBack("cellphoneNo(을)를 입력해주세요.");
 		}
-
 		if (Ut.empty(email)) {
 			return rq.jsHistoryBack("email(을)를 입력해주세요.");
 		}
-
 		ResultData modifyRd = memberService.modify(rq.getLoginedMemberId(), loginPw, name, nickname, cellphoneNo,
-				email);
-		
+				email);		
 		if ( req.getParameter("deleteFile__member__0__extra__profileImg__1") != null ) {
             genFileService.deleteGenFile("member", rq.getLoginedMemberId(), "extra", "profileImg", 1);
-        }
-		
+        }		
 		Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
 
         for (String fileInputName : fileMap.keySet()) {

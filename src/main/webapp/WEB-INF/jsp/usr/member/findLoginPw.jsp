@@ -30,7 +30,7 @@ function MemberFindLoginPw__submitForm(form) {
     MemberFindLoginPw__submitFormDone = true;
 }
 </script>
-<div class="section section-article-list px-20">
+<div class="section section-article-list px-20 f-loginPw">
 	<div class="container mx-auto">
 	    <form method="POST" action="/usr/member/doFindLoginPw" onsubmit="MemberFindLoginPw__submitForm(this); return false;">
 	        <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
@@ -85,5 +85,17 @@ function MemberFindLoginPw__submitForm(form) {
             </div>
 	    </form>
 	</div>
+</div>
+<div id="footerwrap_member">
+		<div class="footerlogo_member"></div>
+        <div class="footer after">
+        	<div class="mail">
+        		<i class="far fa-envelope"></i>
+        	</div>
+        	<p class="mail-ad">inchby112@gmail.com</p>
+            <p class="blog-copy">
+            	Copyright ⓒ 2021. Jeong Bo-Kwang. All rights reserved
+            </p> 
+        </div>
 </div>
 <%@ include file="../common/foot.jspf"%>

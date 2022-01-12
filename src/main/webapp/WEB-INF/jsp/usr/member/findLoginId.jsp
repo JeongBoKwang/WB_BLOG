@@ -24,17 +24,17 @@ function MemberFindLoginId__submitForm(form) {
     MemberFindLoginId__submitFormDone = true;
 }
 </script>
-<div class="section section-article-list px-20">
+<div class="section section-article-list px-20 f_loginId">
 	<div class="container mx-auto">
 	    <form method="POST" action="/usr/member/doFindLoginId" onsubmit="MemberFindLoginId__submitForm(this); return false;">
 	        <input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
-	        <div class="form-control">
+	        <div class="form-control w-96">
                 <label class="label">
                     이름
                 </label>
                 <input class="input input-bordered w-full" type="text" maxlength="30" name="name" placeholder="이름을 입력해주세요." />
             </div>
-            <div class="form-control">
+            <div class="form-control w-96">
                 <label class="label">
                     이메일
                 </label>
@@ -65,7 +65,7 @@ function MemberFindLoginId__submitForm(form) {
                     <span>비밀번호 찾기</span>
                 </a>
 
-                <a href="#" class="link link-hover btn-sm mb-1">
+                <a href="/" class="link link-hover btn-sm mb-1">
                     <span><i class="fas fa-home"></i></span>
                     &nbsp;
                     <span>홈</span>
@@ -73,5 +73,17 @@ function MemberFindLoginId__submitForm(form) {
             </div>
 	    </form>
 	</div>
+</div>
+<div id="footerwrap_member">
+		<div class="footerlogo_member"></div>
+        <div class="footer after">
+        	<div class="mail">
+        		<i class="far fa-envelope"></i>
+        	</div>
+        	<p class="mail-ad">inchby112@gmail.com</p>
+            <p class="blog-copy">
+            	Copyright ⓒ 2021. Jeong Bo-Kwang. All rights reserved
+            </p> 
+        </div>
 </div>
 <%@ include file="../common/foot.jspf"%>

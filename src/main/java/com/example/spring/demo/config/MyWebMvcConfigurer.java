@@ -43,8 +43,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 		//로그아웃 했는데 나오면 안되는 곳
 		ir = registry.addInterceptor(needLoginInterceptor);
 		ir.addPathPatterns("/usr/member/myPage");
-		ir.addPathPatterns("/usr/member/checkPasswore");
-		ir.addPathPatterns("/usr/member/doCheckPasswore");
+		ir.addPathPatterns("/usr/member/checkPassword");
+		ir.addPathPatterns("/usr/member/doCheckPassword");
 		ir.addPathPatterns("/usr/member/modify");
 		ir.addPathPatterns("/usr/member/doModify");
 		ir.addPathPatterns("/usr/reply/doWrite");
